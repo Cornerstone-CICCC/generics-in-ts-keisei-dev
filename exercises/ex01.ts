@@ -2,6 +2,28 @@
 // These arguments could be strings or numbers. If both are strings, use the concat method; otherwise, just sum the numbers.
 // If they are not of the same type, print an error message to the console; If they are not string or number, print an error message
 
-const concatSum = () => {
-  //Code here
-};
+function concatSum<T, U>(a: T, b: U): string | number | undefined {
+  const okA = typeof a === 'string' || typeof a === 'number';
+  const okB = typeof b === 'string' || typeof b === 'number';
+
+  if (!okA || !okB) {
+    console.error('Error: both values must be string or number.');
+    return undefined;
+  }
+
+  if (typeof a !== typeof b) {
+    console.error('Error: both values must be the same type (both string or both number).');
+    return undefined;
+  }
+
+  if (typeof a === 'string' && typeof b === 'string') {
+    return a.concat(b);
+  }
+
+  return (a as number) + (b as number);
+}
+
+console.log(concatSum('hello', ' world'));
+console.log(concatSum(10, 5));
+console.log(concatSum('a', 1));
+console.log(concatSum({} as unknown, 1));
